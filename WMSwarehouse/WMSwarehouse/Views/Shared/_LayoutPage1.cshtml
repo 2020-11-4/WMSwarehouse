@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/YS/assets/images/favicon.png">
+    <title></title>
+    <link href="~/YS/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/YS/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/YS/css/style.css" rel="stylesheet" />
+    <link href="~/YS/css/colors/blue.css" rel="stylesheet" id="theme" />
+</head>
+<body class="fix-header fix-sidebar card-no-border">
+
+    <div class="preloader" style="display: none;">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+        </svg>
+    </div>
+
+    <div id="main-wrapper">
+
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <!-- Logo icon -->
+
+                        <span>
+                            <!-- dark Logo text -->
+                            <img src="~/YS/IMG/1.png" alt="homepage" class="dark-logo">WMS
+                        </span>
+                    </a>
+                </div>
+
+                <div class="navbar-collapse">
+
+                    <ul class="navbar-nav mr-auto mt-md-0 ">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item hidden-sm-down">
+                           
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav my-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic m-r-5">Markarn Doe</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+                <div class="scroll-sidebar" style="overflow: hidden; width: auto; height: 100%;">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav active">
+                        <ul id="sidebarnav" class="in">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">到货管理</a>
+                                <ul id="MenuDropdown" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">到货登记</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="three-column.html">快捷到货</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">到货记录</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown1" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">入库业务</a>
+                                <ul id="MenuDropdown1" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">入库明细</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="three-column.html">入库明细</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">入库任务单</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown2" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">出库管理</a>
+                                <ul id="MenuDropdown2" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">出库明细</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">出库任务单</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown3" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">调拨业务</a>
+                                <ul id="MenuDropdown3" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">调拨单列表</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">调拨单审核</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown4" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">库存管理</a>
+                                <ul id="MenuDropdown4" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">总库存查询</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">安全库存预警</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">临期报警管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">前置仓库存查询</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">移位中查询</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown5" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">报损管理</a>
+                                <ul id="MenuDropdown5" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">报损管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">报损审核</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown6" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">前置仓补货管理</a>
+                                <ul id="MenuDropdown6" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">补货申请</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">补货管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">补货审核</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">补货单管理</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown7" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">盘点管理</a>
+                                <ul id="MenuDropdown7" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">盘点任务</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">盘点审核</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown8" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">仓库管理</a>
+                                <ul id="MenuDropdown8" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">仓库设置</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">库区管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">货位管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">仓库员管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">仓库管理权限</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown9" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">系统设置</a>
+                                <ul id="MenuDropdown9" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">参数设置</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">类别顺序</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#MenuDropdown0" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">捕获管理</a>
+                                <ul id="MenuDropdown0" class="sub-navbar collapse flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="examples.html">添加补货单</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">管理补货单</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="one-column.html">审核补货单</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="text-center m-t-30">
+                            <a href="#" class="btn btn-danger">返回首页</a>
+                        </div>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div><div class="slimScrollBar" style="background: rgb(220, 220, 220); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; left: 1px; height: 996.121px;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;"></div>
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+        <div class="page-wrapper" style="min-height: 806px;">
+
+        </div>
+
+    </div>
+
+    <script src="~/YS/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/YS/assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script src="~/YS/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="~/YS/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="~/YS/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/YS/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="~/YS/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/YS/js/custom.js"></script>
+
+    <script src="~/YS/assets/plugins/flot/jquery.flot.js"></script>
+    <script src="~/YS/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/YS/js/flot-data.js"></script>
+
+    <script src="~/YS/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    @RenderBody()
+
+
+</body>
+</html>
