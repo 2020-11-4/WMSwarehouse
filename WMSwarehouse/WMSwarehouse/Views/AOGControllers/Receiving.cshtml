@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "AOGShow";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
@@ -16,10 +15,51 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-    <div class="demoTable" >
-        <div style="background-color:aliceblue;margin-bottom:15px;margin-top:20px">
+    <div style="margin-top:20px">
+        <label>到货记录</label>
+        <hr />
+    </div>
 
-            <div class="layui-inline">
+    <div class="demoTable">
+        <div style="background-color:aliceblue;margin-bottom:15px;margin-top:20px">
+            <div class="layui-form-item">
+
+                <div class="layui-input-inline">
+                    <div class="layui-form-item" style="width:320px;">
+                        <label class="layui-form-label" style="width:100px">到货登记号</label>
+                        <div class="layui-input-block">
+                            <input id="txtDen" name="title" class="layui-input" type="text" placeholder="请输入登记号" autocomplete="off" lay-verify="title">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-input-inline" style="margin-left:117px">
+                    <div class="layui-form-item" style="width:320px;">
+                        <label class="layui-form-label" style="width:100px">采购单号</label>
+                        <div class="layui-input-block">
+                            <input id="txtDan" name="title" class="layui-input" type="text" placeholder="请输入采购单号" autocomplete="off" lay-verify="title">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-input-inline" style="margin-left:117px">
+                    <div class="layui-form-item" style="width:320px;">
+                        <label class="layui-form-label" style="width:100px">供应商</label>
+                        <div class="layui-input-block">
+                            <input id="txtSang" name="title" class="layui-input" type="text" placeholder="请输入供应商" autocomplete="off" lay-verify="title">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-inline" style="margin-left: 117px">
+                    <label class="layui-form-label" style="width:100px">采购日期</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" id="test10" type="text" placeholder=" - ">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="layui-form-item">
+
                 <form class="layui-form" action="">
                     <label class="layui-form-label" style="width:100px">产品品类</label>
                     <div class="layui-input-inline">
@@ -28,34 +68,9 @@
                         </select>
                     </div>
                 </form>
-            </div>
 
-
-            <div class="layui-form-item" style="width:320px;float:left">
-                <label class="layui-form-label" style="width:100px">采购单号</label>
-                <div class="layui-input-block">
-                    <input id="txtDan" name="title" class="layui-input" type="text" placeholder="请输入采购单号" autocomplete="off" lay-verify="title">
-                </div>
-            </div>
-            <div class="layui-inline" style="float:left">
-                <label class="layui-form-label" style="width:100px">采购日期</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" id="test10" type="text" placeholder=" - ">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
                 <div class="layui-input-inline">
                     <div class="layui-form-item" style="width:320px">
-                        <label class="layui-form-label" style="width:100px">供应商</label>
-                        <div class="layui-input-block">
-                            <input id="txtGong" name="title" class="layui-input" type="text" placeholder="请输入供应商" autocomplete="off" lay-verify="title">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="layui-input-inline" style="margin-left:117px">
-                    <div class="layui-form-item" style="width:320px;float:left">
                         <label class="layui-form-label" style="width:100px">采购人</label>
                         <div class="layui-input-block">
                             <input id="txtRen" name="title" class="layui-input" type="text" placeholder="请输入采购人" autocomplete="off" lay-verify="title">
@@ -63,16 +78,23 @@
                     </div>
                 </div>
 
-
-                <div class="layui-input-inline" style="margin-left:140px">
-                    <button id="btnCha" class="layui-btn layui-btn-sm layui-btn-normal" data-type="btnCha" type="button"> <i class="layui-icon layui-icon-search"></i> 查询</button>
+                <div class="layui-input-inline" style="margin-left:117px">
+                    <div class="layui-form-item" style="width:320px;">
+                        <label class="layui-form-label" style="width:100px">产品类型</label>
+                        <div class="layui-input-block">
+                            <input id="txtRen" name="title" class="layui-input" type="text" placeholder="请输入产品类型" autocomplete="off" lay-verify="title">
+                        </div>
+                    </div>
                 </div>
 
-
+                <div class="layui-inline" style="margin-left: 117px">
+                    <label class="layui-form-label" style="width:100px">到货日期</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" id="test10" type="text" placeholder=" - ">
+                    </div>
+                </div>
+                    <button id="btnCha" class="layui-btn layui-btn-sm layui-btn-normal" data-type="btnCha" type="button"> <i class="layui-icon layui-icon-search"></i> 查询</button>
             </div>
-
-
-
         </div>
 
         <div style="background-color:aliceblue">
@@ -81,7 +103,8 @@
         </div>
     </div>
     <script type="text/html" id="barDome">
-        <a class="layui-btn layui-btn-xs" lay-event="dj">到货登记</a>
+        <a class="layui-btn layui-btn-xs" lay-event="dj">到货详情</a>
+        <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
     </script>
 
 
@@ -99,20 +122,22 @@
 
             table.render({
                 elem: '#test'
-                , url: 'http://localhost:52098/api/AOGShowAsync'
+                , url: 'http://localhost:52098/api/ReceivingAsync'
                 , title: '文章管理'
                 , method: 'get'
                 , id: 'testReload'
                 , cols: [[
                     { type: 'checkbox' }
-                    , { field: 'Purchasing_Id', width: 130, title: '序号', sort: true }
-                    , { field: 'Ordernumber', width: 170, title: '采购单号' }
-                    , { field: 'SName', width: 170, title: '供应商名称', sort: true }
-                    , { field: 'Classes', width: 160, title: '产品品类' }
-                    , { field: 'Purchasedate', width: 150, title: '采购日期' }
-                    , { field: 'Agent', width: 150, title: '采购人', sort: true }
-                    , { field: 'State', width: 150, title: '入库状态', sort: true }
-                    , { field: 'wealth', width: 350, title: '操作', toolbar: '#barDome' }
+                    , { field: 'Arrival_Id', width: 110, title: '序号', sort: true }
+                    , { field: 'Arrivalregistration', width: 150, title: '到货登记号' }
+                    , { field: 'Ordernumber', width: 150, title: '采购单号', sort: true }
+                    , { field: 'SName', width: 150, title: '供应商名称', sort: true }
+                    , { field: 'Classes', width: 150, title: '产品品类', sort: true }
+                    , { field: 'Purchasedate', width: 170, title: '采购日期', sort: true }
+                    , { field: 'Agent', width: 130, title: '采购人' }
+                    , { field: 'Adelivery', width: 150, title: '到货日期' }
+                    , { field: 'AddType', width: 150, title: '添加类型', sort: true }
+                    , { field: 'wealth', width: 150, title: '操作', toolbar: '#barDome' }
                 ]]
                 , page: true
                 , limit: 10
@@ -125,17 +150,16 @@
                 var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
                 var tr = obj.tr;
                 if (layEvent == 'del') {
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('确认删除', function (index) {
 
                         obj.del();
                         layer.close(index);
 
                     });
-
                 }
                 else if (layEvent == 'dj') {
 
-                    window.location.href = "/AOGControllers/Deng?XId=" + data.Purchasing_Id;
+                    window.location.href = "/AOGControllers/Quick?XId=" + data.Arrival_Id;
                 }
 
 
@@ -180,10 +204,11 @@
                             curr: 1 //重新从第 1 页开始
                         }
                         , where: {
-                            CDan: $("#txtDan").val(),
-                            CPin: $("#quiz1").val(),
-                            CGong: $("#txtGong").val(),
-                            CRen: $("#txtRen").val()
+                            RDen: $("#txtDen").val(),
+                            RDan: $("#txtDan").val(),
+                            RSang: $("#txtSang").val(),
+                            RPin: $("#quiz1").val(),
+                            Ren: $("#txtRen").val()
                         }
                     }, 'data');
                 }
