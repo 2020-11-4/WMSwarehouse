@@ -13,10 +13,26 @@ namespace WMSwarehouse.Controllers
         {
             return View();
         }
-        //调拨详情信息
+        //调拨物品详情
         public IActionResult Particulars()
         {
             return View();
         }
+        //补货需求列表
+        public IActionResult Replenishment()
+        {
+            return View();
+        }
+        //补货需求详情
+        public IActionResult Itemdetails()
+        {
+            return View();
+        }
+        //调拨审核
+        public IActionResult Audit()
+        {
+            return View();
+        }
+
     }
 }
