@@ -13,9 +13,27 @@ namespace WMSwarehouse.Controllers
             return View();
         }
 
-        public IActionResult Deng()
+        public IActionResult Deng(int XId)
+        {
+            ViewBag.XId = XId;
+            return View();
+        }
+
+        public IActionResult EXPRESS()
         {
             return View();
         }
+
+        public IActionResult Receiving()
+        {
+            return View();
+        }
+
+        public IActionResult Quick(int XId)
+        {
+            ViewBag.XId = XId;
+            return View();
+        }
+        
     }
 }
