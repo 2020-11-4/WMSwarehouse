@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "Quick";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<!DOCTYPE html>
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<link href="~/layui-v2.5.6/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/layui-v2.5.6/layui/lay/modules/layer.js"></script>
+
+<div style="margin-top:20px">
+    <label> 快捷到货登记（DH001）</label>
+    <button style="float:right" id="btnFan" class="layui-btn layui-btn-sm layui-btn-normal" data-type="btnCha" type="button"> 返回</button>
+    <hr />
+</div>
+
+<div style="background-color:aliceblue;margin-bottom:15px;margin-top:20px">
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <div class="layui-form-item" style="width:320px;">
+                <label class="layui-form-label" style="width:100px">到货日期:</label>
+                <div class="layui-input-block">
+                    <input id="txtDao" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-input-inline" style="margin-left:117px">
+            <div class="layui-form-item" style="width:320px;">
+                <label class="layui-form-label" style="width:100px">供应商:</label>
+                <div class="layui-input-block">
+                    <input id="txtGong" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-input-inline" style="margin-left:117px">
+            <div class="layui-form-item" style="width:320px;">
+                <label class="layui-form-label" style="width:100px">卸货库区:</label>
+                <div class="layui-input-block">
+                    <input id="txtSang" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-input-inline" style="margin-left:117px">
+            <div class="layui-form-item" style="width:320px;">
+                <label class="layui-form-label" style="width:100px">采购日期:</label>
+                <div class="layui-input-block">
+                    <input id="txtRi" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<label style="margin-top:10px;margin-left:25px"> 到货原料</label>
+<table class="table table-bordered;" style="border:1px solid #000;border-collapse:collapse;margin-left:20px;width:1400px;">
+    <thead>
+        <tr>
+            <th> 序号</th>
+            <th> 原料编码</th>
+            <th> 原料名称</th>
+            <th> 存放温区</th>
+            <th> 原料规格</th>
+            <th> 采购数量</th>
+            <th> 采购单价</th>
+            <th> 金额（元）</th>
+            <th> 操作</th>
+        </tr>
+    </thead>
+    <tbody id="tb">
+    </tbody>
+</table>
+
+<div class="layui-form-item" style="width:320px;float:left;margin-top:20px">
+    <label class="layui-form-label" style="width:100px">备注:</label>
+    <div class="layui-input-block">
+        <input id="txtDan" name="title" class="layui-input" type="text" placeholder="采购备注" autocomplete="off" lay-verify="title" style="width:1000px">
+    </div>
+
+        <button id="btnBian" class="layui-btn layui-btn-big" style="margin-top:50px;">编辑</button>
+        <button class="layui-btn layui-btn-big" style="margin-top:50px;margin-left:20px">打印原料条码</button>
+
+    </div>
+
+
+<script>
+    $.ajax({
+        url: 'http://localhost:52098/api/CheckinAsync',
+        type: 'get',
+        dataType: 'Json',
+        success: function (d) {
+            $.each(d, function (index, item) {
+                var list = '<tr>' +
+                    '<td>' + item.Material_Id + '</td>' +
+                    '<td>' + item.Mcoding + '</td>' +
+                    '<td>' + item.MName + '</td>' +
+                    '<td>' + item.Mwarm + '</td>' +
+                    '<td>' + item.Mspecification + '</td>' +
+                    '<td>' + item.Mquantity + '</td>' +
+                    '<td>' + item.Mstorage + '</td>' +
+                    '<td>128</td>' +
+                    '<td></td>' +
+                    '</tr>'
+                $("#tb").append(list);
+            })
+        }
+    })
+
+    $.ajax({
+        url: 'http://localhost:52098/api/BindingAsync',
+        type: 'get',
+        dataType: 'Json',
+        success: function (d) {
+            $.each(d, function (index, item) {
+                $("#txtDao").val(item.Adelivery);
+                $("#txtGong").val(item.SName);
+                $("#txtRi").val(item.Purchasedate);
+            })
+
+        }
+    })
+
+    $("#btnBian").click(function () {
+        window.location.href = "/AOGControllers/EXPRESS";
+    })
+</script>

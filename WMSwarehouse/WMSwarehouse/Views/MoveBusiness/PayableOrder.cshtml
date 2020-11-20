@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewData["Title"] = "PayableOrder";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@*接收路径*@
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+
+<form class="layui-form" action="">
+    
+    <br />
+    <div style="background-color:#ede7e7">
+    <div class="layui-form-item" style="width:100%;height:30px;margin-left:20px">
+        <label class="layui-form-label" style="width:130px">调出仓库</label>
+        <div class="layui-input-inline">
+            <select name="quiz1">
+                <option value="">全部</option>
+            </select>
+        </div>
+        <label class="layui-form-label" style="width:130px">调出仓库</label>
+        <div class="layui-input-inline">
+            <select name="quiz2">
+                <option value="">全部</option>
+            </select>
+        </div>
+
+        <label class="layui-form-label" style="width:130px">商品编码:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+
+    </div>
+    <div class="layui-form-item" style="width:100%;height:30px;margin-left:20px">
+        <label class="layui-form-label" style="width:130px">商品名称:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userna" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+
+        <label class="layui-form-label" style="width:130px">审批状态</label>
+        <div class="layui-input-inline">
+            <select name="quiz3">
+                <option value="">全部</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width:150px">调拨日期:</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" style="width:300px" id="datetime" type="text" placeholder=" - ">
+            </div>
+        </div>
+        <div class="layui-inline" style="margin-left:5px">
+            <label class="layui-form-label" style="width:200px;color:red">调拨单号:</label>
+            <div class="layui-input-inline">
+                <input type="text" id="Requisition" name="username" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入">
+            </div>
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+                    <i class="layui-icon" style="font-size: 20px; ">&#xe615;</i> 搜索
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            , url: 'http://localhost:52098/api/GetT_Audits'
+
+            , defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , title: '用户数据表'
+            , cols: [[
+                { field: 'IDX', title: '序号', width: 80, fixed: 'left', unresize: true, sort: true }
+                , { field: 'Requisition', title: '调拨单号', width: 120, edit: 'text' }
+                , { field: 'Tuneout', title: '调出仓库', width: 150, edit: 'text' }
+                , { field: 'Transferred', title: '调入仓库', width: 100, edit: 'text' }
+                , { field: 'Allocationdate', title: '调拨日期', width: 100, edit: 'text' }
+                , { field: 'Allotpeople', title: '调拨人', width: 100, edit: 'text' }
+                , { field: 'Auditstate', title: '审核状态', width: 80, edit: 'text' }
+                , { field: 'Allotcondition', title: '调拨状态', width: 120, edit: 'text' }
+                , { field: 'Framnumber', title: '装箱数量', width: 100, edit: 'text' }
+                , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 130 }
+            ]]
+            , page: true
+            , id:'IDX'//自定义id
+        });
+        //查询
+        var $ = layui.$, active = {
+            reload: function () {
+                //获取文本id
+                var Nameid1 = $('#quiz1');
+                var Nameid2 = $('#quiz2');
+                var Nameid3 = $('#quiz3');
+                var Nameid4 = $('#Requisition');
+                //执行重载
+                table.reload('IDX', {//获取数据id
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        key: {
+                            Tuneout: $('#quiz1').val(),
+                            Transferred: Nameid2.val(),
+                            Auditstate: Nameid3.val(),
+                            Requisition: Nameid4.val()
+                        }
+                    }
+                }, 'data');
+            }
+        };
+
+        //绑定click点击事件 通用按钮
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            //查看
+            if (layEvent === 'detail') {
+                layer.alert('序号: ' + data.IDX + '<br>' + '调拨单号:' + data.Requisition + '<br>' + '调出仓库:' + data.Tuneout + '<br>' + '调拨入库:' + data.Transferred + '<br>' + '调拨日期:' + data.Allocationdate + '<br>' + '调拨人:' + data.Allotpeople + '<br>' + '审核状态:' + data.Auditstate + '<br>' + '调拨状态:' + data.Allotcondition + '<br>' + '装框数量:' + data.Framnumber +  '<bar>');
+            } 
+            //console.log(obj)
+            else if(obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.prompt({
+                    formType: 2
+                    , value: data.Tuneout
+                }, function (value, index) {
+                    obj.update({
+                        Tuneout: value
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+    });
+</script>
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //日期时间范围
+        laydate.render({
+            elem: '#datetime'
+            , type: 'datetime'
+            , range: true
+        });
+    });
+</script>
+
+
