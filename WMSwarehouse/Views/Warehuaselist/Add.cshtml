@@ -5,7 +5,7 @@
 }
 <h1>新增地址</h1>
 <script src="~/jquery-3.4.1.min.js"></script>
-<table>
+<table class="layui-table">
     <tr>
         <td>上级仓库名称</td>
         <td><input type="text" id="SuperiorWarehouse" /></td>
@@ -52,7 +52,7 @@
         </td>
     </tr>
     <tr>
-        <td><input type="button" value="添加" onclick="Add()" /></td>
+        <td><input type="button" value="添加" onclick="location.href='/Warehuaselist/GoodsShow'" id="Addc"/></td>
     </tr>
 </table>
 <script>
@@ -86,6 +86,7 @@
             success: function (data) {
                 if (data > 0) {
                     alert("添加成功");
+                    
                 }
                 else {
                     alert("添加失败");

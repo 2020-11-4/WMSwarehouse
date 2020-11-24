@@ -3,6 +3,7 @@
     ViewData["Title"] = "GoodsShow";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
+<h1>库区管理</h1>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,38 +30,29 @@
             <input class="layui-input" id="Rsesrvoirare">
         </div>
         <button class="layui-btn" data-type="reload" id="chaxun">搜索</button>
-        <button class="layui-btn" data-type="reload" onclick="location.href = '/Warehuaselist/AddReservoir'">添加库区</button>
     </div>
 
-    <table class="layui-hide" id="demo" lay-filter="test"></table>
+    <table class="layui-table" lay-data="{ url:'http://localhost:52098/api/GetGoods', page:true, id:'idTest', toolbar: 'default'}" lay-filter="demo">
+        <thead>
+            <tr>
+                <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+                <th lay-data="{field:'id', width:300}">ID</th>
+                <th lay-data="{field:'WarehouseName', width:300}">所属仓库</th>
+                <th lay-data="{field:'Rsesrvoirare', width:300}">库区名称</th>
+                <th lay-data="{field:'WName', width:300}">所属温区</th>
+                <th lay-data="{fixed: 'right', width:280, align:'center', toolbar: '#barDemo'}">操作</th>
+            </tr>
+        </thead>
+    </table>
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">添加货位</a>
     </script>
     <script src="~/layui-v2.5.6/layui/layui.js" charset="utf-8"></script>
     <script>
         layui.use('table', function () {
             var table = layui.table;
-            //执行一个 table 实例
-            table.render({
-                elem: '#demo'
-                , url: 'http://localhost:52098/api/GetGoods' //数据接口
-                , title: '库区管理'
-                , page: true //开启分页
-                , limit: 10 //开启合计行
-                , limits: [10, 20]
-                , id: 'idTest'
-                , cols: [[ //表头
-                    { type: 'checkbox', fixed: 'left' }
-                    , { field: 'id', title: 'ID', width: 340 }
-                    , { field: 'WarehouseName', title: '所属仓库', width: 340 }
-                    , { field: 'Rsesrvoirare', title: '库区名称', width: 340 }
-                    , { field: 'WName', title: '所属温区', width: 340, sort: true }
-                    , { fixed: 'right', width: 190, align: 'center', toolbar: '#barDemo' }
-                ]]
-            });
             //监听工具条
             table.on('tool(demo)', function (obj) {
                 var data = obj.data;
@@ -75,7 +67,10 @@
                     layer.alert('编辑行：<br>' + JSON.stringify(data))
                 }
             });
-
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
             var $ = layui.$, active = {
                 reload: function () {
                     var WarehouseName = $('#WarehouseName');
@@ -91,11 +86,7 @@
                     });
                 }
             };
-            $('.demoTable .layui-btn').on('click', function () {
-                var type = $(this).data('type');
-                active[type] ? active[type].call(this) : '';
-            });
-        });  
+        });
     </script>
 </body>
 </html>

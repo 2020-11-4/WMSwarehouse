@@ -13,11 +13,6 @@ namespace WMSwarehouse.Controllers
         {
             return View();
         }
-        //添加库区
-        public IActionResult AddReservoir() 
-        {
-            return View();
-        }
         //显示库区管理
         public IActionResult GoodsShow() 
         {
@@ -38,5 +33,6 @@ namespace WMSwarehouse.Controllers
         {
             return View();
         }
+
     }
 }

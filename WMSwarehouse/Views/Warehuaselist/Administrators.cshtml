@@ -31,69 +31,158 @@
             </select>
         </div>
         <button class="layui-btn" data-type="reload" id="chaxun">搜索</button>
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button id="layerDemo" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">添加管理员</button>
+        </div>
     </div>
-    <table class="layui-table" lay-data="{ url:'http://localhost:52098/api/GetAdministrators', page:true, id:'idTest'}" lay-filter="demo">
+
+    <table class="layui-hide" id="demo" lay-filter="test"></table>
+
+    @*<table class="layui-table" lay-data="{ url:'http://localhost:52098/api/GetAdministrators', page:true, id:'idTest'}" lay-filter="demo">
         <thead>
             <tr>
                 <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
                 <th lay-data="{field:'aid', width:280}">ID</th>
                 <th lay-data="{field:'name', width:280}">管理员</th>
-                <th lay-data="{field:'loginPjone', width:280}">所属仓库</th>
-                <th lay-data="{field:'createDate', width:280}">所属库区</th>
-                <th lay-data="{field:'aState', width:280}">货位名称</th>
+                <th lay-data="{field:'loginPjone', width:280}">手机号</th>
+                <th lay-data="{field:'createDate', width:280}">创建时间</th>
+                <th lay-data="{field:'aState', width:280}">状态</th>
                 <th lay-data="{fixed: 'right', width:240, align:'center', toolbar: '#barDemo'}">操作</th>
             </tr>
         </thead>
-    </table>
+    </table>*@
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
     <script src="~/layui-v2.5.6/layui/layui.js"></script>
     <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-
     <script>
-            layui.use('table', function () {
-                var table = layui.table;
+        layui.use('table', function () {
+            var table = layui.table;
+            //执行一个 table 实例
+            table.render({
+                elem: '#demo'
+                , url: 'http://localhost:52098/api/GetAdministrators' //数据接口
 
-                //监听工具条
-                table.on('tool(demo)', function (obj) {
-                    var data = obj.data;
-                    if (obj.event === 'detail') {
-                        layer.msg('ID：' + data.id + ' 的查看操作');
-                    } else if (obj.event === 'del') {
-                        layer.confirm('真的删除行么', function (index) {
-                            obj.del();
-                            layer.close(index);
-                        });
-                    } else if (obj.event === 'edit') {
-                        layer.alert('编辑行：<br>' + JSON.stringify(data))
-                    }
-                });
-                var $ = layui.$, active = {
-                    reload: function () {
-                        var Name = $('#Name');
-                        var AState = $('#AState');
-                        //执行重载
-                        table.reload('idTest', {
-                            page: {
-                                curr: 1 //重新从第 1 页开始
+                , id: 'idTest'
+                , page: true //开启分页
+                , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , limit: 10
+                , limits: [10, 20]
+                , cols: [[ //表头
+                    { type: 'checkbox', fixed: 'left' }
+                    , { field: 'aid', title: 'ID', width: 280 }
+                    , { field: 'name', title: '管理员', width: 280 }
+                    , { field: 'loginPjone', title: '手机号', width: 280 }
+                    , { field: 'createDate', title: '创建时间', width: 280, }
+                    , {
+                        field: 'aState', title: '状态', width: 250, templet: function (d)
+                        {
+                            if (d.aState == true) {
+                                return "启动";
                             }
-                            , where: {
-                                Name: Name.val(),
-                                AState: AState.val()
+                            else {
+                                return "禁用";
                             }
-                        });
+                        }
                     }
-                };
-                $('.demoTable .layui-btn').on('click', function () {
-                    var type = $(this).data('type');
-                    active[type] ? active[type].call(this) : '';
-                });
+                    , { fixed: 'right', width: 240, align: 'center', toolbar: '#barDemo' }
+                    
+                ]]
             });
+            //监听工具条
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.
+                    event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                }
+            });
+            var $ = layui.$, active = {
+                reload: function () {
+                    var Name = $('#Name');
+                    var AState = $('#AState');
+                    //执行重载
+                    table.reload('idTest', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            Name: Name.val(),
+                            AState: AState.val()
+                        }
+                    });
+                }
+            };
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+            var active = {
+                setTop: function () {
+                    var that = this;
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                        , title: '当你选择该窗体时，即会在最顶端'
+                        , area: ['390px', '260px']
+                        , shade: 0
+                        , maxmin: true
+                        , offset: [ //为了演示，随机坐标
+                            Math.random() * ($(window).height() - 300)
+                            , Math.random() * ($(window).width() - 390)
+                        ]
+                        , content: '//layer.layui.com/test/settop.html'
+                        , btn: ['继续弹出', '全部关闭'] //只是为了演示
+                        , yes: function () {
+                            $(that).click();
+                        }
+                        , btn2: function () {
+                            layer.closeAll();
+                        }
+                        , zIndex: layer.zIndex //重点1
+                        , success: function (layero) {
+                            layer.setTop(layero); //重点2
+                        }
+                    });
+                }
+                , offset: function (othis) {
+                    var type = othis.data('type')
+                        , text = othis.text();
+
+                    layer.open({
+                        type: 1
+                        , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                        , id: 'layerDemo' + type //防止重复弹出
+                        , content: '<div style="padding: 20px 100px;">' +
+                            '<div>管理员:<input type = "text" id = "name"/></div>' +
+                            '<div>手机号:<input type="text" id="loginPjone" /></div>' +
+                            '<div>' +
+                            '<input type="button" value="添加" id="Addc()" /></div>' +
+                            '</div > '
+                        , btn: '关闭全部'
+                        , btnAlign: 'c' //按钮居中
+                        , shade: 0 //不显示遮罩
+                        , yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                }
+            };
+
+            $('#layerDemo .layui-btn').on('click', function () {
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+        });
+
     </script>
 
 </body>
