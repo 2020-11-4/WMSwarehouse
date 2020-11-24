@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewData["Title"] = "particularsshow";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@*<link href="~/css/site.css" rel="stylesheet" />*@
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<h1>采购退货详情</h1>
+<div style="border-width: 2px;border-color:black;border-style: solid;width:1200px;height:100px;">
+    <span>产品品类：</span><input id="wtype" type="text" />
+    <span>产品名称：</span><input id="wname" type="text" />
+    <input id="Button1" type="button" value="查询" onclick="HouseShow()" class="btn btn-flickr" />
+</div>
+
+<table class="table table-primary" style="width:1300px;">
+    <thead>
+        <tr>
+            <th style="text-align:center;"><input class="Checkbox1" type="checkbox" onclick="quan()" />/全选</th>
+            <th style="text-align:center;">序号</th>
+            <th style="text-align:center;">产品品类</th>
+            <th style="text-align:center;">产品编码</th>
+            <th style="text-align:center;">产品名称</th>
+            <th style="text-align:center;">产品规格</th>
+            <th style="text-align:center;">采购数量</th>
+            <th style="text-align:center;">计量单位</th>
+            <th style="text-align:center;">入库数量</th>
+            <th style="text-align:center;">库存数量</th>
+            <th style="text-align:center;">退货数量</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+    </thead>
+    <tbody id="xx">
+    </tbody>
+</table>
+<!--<div style="text-align:center;">
+    <input id="First" type="button" value="首页" onclick="goFirst()" class="btn btn-outline-primary" />
+    <input id="Prev" type="button" value="上一页" onclick="goPrev()" class="btn btn-outline-primary" />
+    <input id="Next" type="button" value="下一页" onclick="goNext()" class="btn btn-outline-primary" />
+    <input id="Last" type="button" value="尾页" onclick="goLast()" class="btn btn-outline-primary" />
+</div>-->
+@*分页*@
+<!--<script>
+    //页码
+    var index = 1;
+    //条数
+    var size = 5;
+    //总条数
+    var sizecount = 0;
+    //总页数
+    var indexcount = 0;
+    //首页
+    function goFirst() {
+        index = 1;
+        HouseShow();
+    }
+    //上一页
+    function goPrev() {
+        if (index == 1) {
+            alert("已经在首页了！");
+            return
+        }
+        index--;
+        HouseShow();
+    }
+    //下一页
+    function goNext() {
+        if (index == indexcount) {
+            alert("已经在尾页了！");
+            return
+        }
+        index++;
+        HouseShow();
+    }
+    //尾页
+    function goLast() {
+        index = indexcount;
+        HouseShow();
+    }
+</script>-->
+<script>
+    $(function () {
+        HouseShow()
+    })
+    function HouseShow() {
+        var wtype = $("#wtype").val();
+        var wname = $("#wname").val();
+        $.ajax({
+            url: "http://localhost:52098/api/particularsshow",
+            type: "get",
+            data: { wtype: wtype, wname: wname },
+            dataType: "json",
+            success: function (d) {
+                $("#xx").empty();
+                $(d).each(function () {
+                    var str = "";
+                    str += '<tr>'
+                        + '<td style="text-align:center;"><input class="Checkbox2" type="checkbox" value=' + this.house_id + ' /></td>'
+                        + '<td style="text-align:center;">' + this.product_Id + '</td>'
+                        + '<td style="text-align:center;">' + this.pCategory + '</td>'
+                        + '<td style="text-align:center;">' + this.pcoding + '</td>'
+                        + '<td style="text-align:center;">' + this.pName + '</td>'
+                        + '<td style="text-align:center;">' + this.pspecification + '</td>'
+                        + '<td style="text-align:center;">' + this.mQuantity + '</td>'
+                        + '<td style="text-align:center;">' + this.punit + '</td>'
+                        + '<td style="text-align:center;">' + this.pamount + '</td>'
+                        + '<td style="text-align:center;">' + this.pamount + '</td>'
+                        + '<td style="text-align:center;">' + this.pamount + '</td>'
+                        + '<td style="text-align:center;"><a href="">出库记录</a></td>'
+                        + '</tr>';
+                    $("#xx").append(str);
+                })
+            }
+        })
+    }
+    //全选
+    function quan() {
+        if ($(".Checkbox1").prop("checked")) {
+            $(".Checkbox2").prop("checked", true);
+        } else {
+            $(".Checkbox2").prop("checked", false);
+        }
+    }
+</script>

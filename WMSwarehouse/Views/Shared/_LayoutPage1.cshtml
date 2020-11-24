@@ -11,11 +11,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="~/YS/assets/images/favicon.png">
     <title></title>
 
-    <link href="~/YS/assets/plugins/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet"/>
+    <link href="~/YS/assets/plugins/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet" />
     <link href="~/YS/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/YS/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/YS/css/style.css" rel="stylesheet" />
     <link href="~/YS/css/colors/blue.css" rel="stylesheet" id="theme" />
+
+    <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/layui-v2.5.6/layui/layui.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 
@@ -53,7 +57,7 @@
 
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic m-r-5">Markarn Doe</a>
+                            <i class="layui-icon">&#xe615;</i><i class="layui-icon" style="margin-left:20px">&#xe614;</i> <i class="layui-icon" style="margin-left:18px">&#xe612;</i><a style="margin-right:20px" href="">登录</a>
                         </li>
                     </ul>
                 </div>
@@ -70,9 +74,9 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#MenuDropdown" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">到货管理</a>
                                 <ul id="MenuDropdown" class="sub-navbar collapse flex-column">
-                                    <li class="nav-item"><a class="nav-link" href="examples.html">到货登记</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="three-column.html">快捷到货</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="one-column.html">到货记录</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/AOGControllers/AOGShow">到货登记</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/AOGControllers/EXPRESS">快捷到货</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/AOGControllers/Receiving">到货记录</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -86,8 +90,8 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#MenuDropdown2" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">出库管理</a>
                                 <ul id="MenuDropdown2" class="sub-navbar collapse flex-column">
-                                    <li class="nav-item"><a class="nav-link" href="examples.html">出库明细</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="one-column.html">出库任务单</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/ck/Outbound">出库明细</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/ck/CGreturnedshow">出库任务单</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -133,11 +137,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#MenuDropdown8" data-toggle="collapse" aria-controls="MenuDropdown" aria-expanded="false">仓库管理</a>
                                 <ul id="MenuDropdown8" class="sub-navbar collapse flex-column">
-                                    <li class="nav-item"><a class="nav-link" href="Add.shtml">仓库设置</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/Warehuaselist/Add">库区管理</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="one-column.html">货位管理</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="one-column.html">仓库员管理</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="one-column.html">仓库管理权限</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Warehuaselist/Add">仓库设置</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Warehuaselist/GoodsShow">库区管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Warehuaselist/GetGoodsallocation">货位管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Warehuaselist/Administrators">仓库员管理</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Warehuaselist/Controllerships">仓库管理权限</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -145,6 +149,7 @@
                                 <ul id="MenuDropdown9" class="sub-navbar collapse flex-column">
                                     <li class="nav-item"><a class="nav-link" href="examples.html">参数设置</a></li>
                                     <li class="nav-item"><a class="nav-link" href="one-column.html">类别顺序</a></li>
+
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -166,7 +171,7 @@
             <!-- End Sidebar scroll-->
         </aside>
 
-        <div class="page-wrapper" style="min-height: 806px;">
+        <div class="page-wrapper" style="min-height:1500px;">
             @RenderBody()
         </div>
 

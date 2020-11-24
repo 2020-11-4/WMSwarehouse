@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Controllerships";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h1>仓库权限</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css" media="all">
+    <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="demoTable">
+        状态:
+        <div class="layui-inline">
+            <select name="WarehouseName" lay-verify="">
+                <option value="">--请选择--</option>
+                <option value="A仓">A仓</option>
+                <option value="B仓">B仓</option>
+            </select>
+        </div>
+        库管理员:
+        <div class="layui-inline">
+            <input class="layui-input" id="LoginPjone">
+        </div>
+
+        <button class="layui-btn" data-type="reload" id="chaxun">搜索</button>
+    </div>
+    <table class="layui-table" lay-data="{ url:'http://localhost:52098/api/GetControllerships', page:true, id:'idTest'}" lay-filter="demo">
+        <thead>
+            <tr>
+                <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+                <th lay-data="{field:'Aid', width:230}">ID</th>
+                <th lay-data="{field:'WarehouseName', width:230}">所属仓库</th>
+                <th lay-data="{field:'Rsesrvoirare', width:230}">所属库区</th>
+                <th lay-data="{field:'Name', width:230}">姓名</th>
+                <th lay-data="{field:'LoginPjone', width:230}">手机号</th>
+                <th lay-data="{field:'CreateDate', width:230}">创建时间</th>
+                <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+            </tr>
+        </thead>
+    </table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script src="~/layui-v2.5.6/layui/layui.js"></script>
+    <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+            //监听工具条
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.msg('ID：' + data.id + ' 的查看操作');
+                } else if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                }
+            });
+        var $ = layui.$, active = {
+            reload: function () {
+                var WarehouseName = $('#WarehouseName');
+                var LoginPjone = $('#LoginPjone');
+                        //执行重载
+                        table.reload('testReload', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            , where: {
+                                WarehouseName: WarehouseName.val(),
+                                LoginPjone: LoginPjone.val()
+                            }
+                        });
+                    }
+                };
+        });
+    </script>
+
+</body>
+</html>
