@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+    <div class="demoTable">
+        <div class="layui-inline">
+            <form class="layui-form">
+                <label class="layui-form-label" style="width:300px">报损仓库</label>
+                <div class="layui-input-inline">
+                    <select name="modules" lay-search="" id="quiz1" lay-verify="required">
+                        <option value="">请选择品类</option>
+
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="demoTable">
+        <div class="layui-inline">
+            <form class="layui-form">
+                <label class="layui-form-label" style="width:300px">报损</label>
+                <div class="layui-input-inline">
+                    <select name="modules" lay-search="" id="quiz1" lay-verify="required">
+                        <option value="">请选择品类</option>
+
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="demoTable">
+        <div class="layui-inline">
+            <form class="layui-form">
+                <label class="layui-form-label" style="width:100px">温区</label>
+                <div class="layui-input-inline">
+                    <select name="modules" lay-search="" id="quiz1" lay-verify="required">
+                        <option value="">请选择品类</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">物料类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="产品" title="产品" checked="">
+            <input type="radio" name="sex" value="商品" title="商品">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">物料编码</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+    </div>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <script src="~/layui-v2.5.6/layui/layui.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.on('tool(test)', function (obj) {
+
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr;
+                if (layEvent == 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+
+                        obj.del();
+                        layer.close(index);
+
+                    });
+
+                }
+                else if (layEvent == 'dj') {
+                    alert('111');
+                    window.location.href = "Deng";
+                }
+
+
+            });
+
+            layui.use(['form', 'layedit', 'laydate'], function () {
+                var form = layui.form;
+                $.ajax({
+                    url: 'http://localhost:52098/api/CategoryAsync',
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (data) {
+                        $.each(data, function (index, item) {
+                            $('#quiz1').append(new Option(item.Classes, item.Pid));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");
+                        //重新渲染 固定写法
+                    }
+                })
+            })
+
+            var $ = layui.$, active = {
+                DelShan: function () {
+                    if (confirm('确定删除')) {
+                        var ids = [];
+                        var checkStatus = table.checkStatus('testReload')
+                            ,
+                            data = checkStatus.data;
+
+                        for (var i = 0; i < data.length; i++) {
+                            ids += ',' + data[i].AID;
+                        }
+                        ids = ids.substr(1);
+
+
+                    }
+
+                }
+                , btnCha: function () {
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            CDan: $("#txtDan").val(),
+                            CPin: $("#quiz1").val(),
+                            CGong: $("#txtGong").val(),
+                            CRen: $("#txtRen").val()
+                        }
+                    }, 'data');
+                }
+                , Add: function () {
+                }
+            };
+            $('.demoTable .layui-btn').on('click', function () {
+                azz
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //日期时间范围
+            laydate.render({
+                elem: '#test10'
+                , type: 'datetime'
+                , range: true
+            });
+        });
+
+    </script>
+</body>
+
+</html>
+
+
