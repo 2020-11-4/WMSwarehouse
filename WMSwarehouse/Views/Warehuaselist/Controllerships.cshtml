@@ -34,14 +34,14 @@
 
         <button class="layui-btn" data-type="reload" id="chaxun">搜索</button>
     </div>
-    <table class="layui-table" lay-data="{ url:'http://localhost:52098/api/GetControllerships', page:true, id:'idTest'}" lay-filter="demo">
+    <table class="layui-table" lay-data="{ url:'http://localhost:52098/api/GetControllerships', page:true, id:'idTest', toolbar: 'default'}" lay-filter="demo">
         <thead>
             <tr>
                 <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
                 <th lay-data="{field:'Aid', width:230}">ID</th>
-                <th lay-data="{field:'WarehouseName', width:230}">所属仓库</th>
-                <th lay-data="{field:'Rsesrvoirare', width:230}">所属库区</th>
-                <th lay-data="{field:'Name', width:230}">姓名</th>
+                <th lay-data="{field:'WarehouseName', width:240}">所属仓库</th>
+                <th lay-data="{field:'Rsesrvoirare', width:240}">所属库区</th>
+                <th lay-data="{field:'Name', width:240}">姓名</th>
                 <th lay-data="{field:'LoginPjone', width:230}">手机号</th>
                 <th lay-data="{field:'CreateDate', width:230}">创建时间</th>
                 <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
@@ -49,8 +49,6 @@
         </thead>
     </table>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
     <script src="~/layui-v2.5.6/layui/layui.js"></script>
@@ -69,8 +67,6 @@
                         obj.del();
                         layer.close(index);
                     });
-                } else if (obj.event === 'edit') {
-                    layer.alert('编辑行：<br>' + JSON.stringify(data))
                 }
             });
         var $ = layui.$, active = {
