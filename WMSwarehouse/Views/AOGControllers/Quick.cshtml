@@ -41,7 +41,7 @@
             <div class="layui-form-item" style="width:320px;">
                 <label class="layui-form-label" style="width:100px">卸货库区:</label>
                 <div class="layui-input-block">
-                    <input id="txtSang" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+                    <input id="txtKu" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
                 </div>
             </div>
         </div>
@@ -83,10 +83,10 @@
         <input id="txtDan" name="title" class="layui-input" type="text" placeholder="采购备注" autocomplete="off" lay-verify="title" style="width:1000px">
     </div>
 
-        <button id="btnBian" class="layui-btn layui-btn-big" style="margin-top:50px;">编辑</button>
-        <button class="layui-btn layui-btn-big" style="margin-top:50px;margin-left:20px">打印原料条码</button>
+    <button id="btnBian" class="layui-btn layui-btn-big" style="margin-top:50px;">编辑</button>
+   
 
-    </div>
+</div>
 
 
 <script>
@@ -122,11 +122,27 @@
                 $("#txtGong").val(item.SName);
                 $("#txtRi").val(item.Purchasedate);
             })
+        }
+    })
 
+    $.ajax({
+        url: 'http://localhost:52098/api/ReserAsync',
+        type: 'get',
+        dataType: 'json',
+        success: function (d) {
+            $.each(d, function (index, item) {
+                $("#txtKu").val(item.WarehouseName);
+            })
         }
     })
 
     $("#btnBian").click(function () {
         window.location.href = "/AOGControllers/EXPRESS";
     })
+
+
 </script>
+
+<SCRIPT LANGUAGE="JavaScript">
+    if (window.print) { document.write('<form>' + ' <button class="layui-btn layui-btn-big" name=print value="打印" ' + 'onClick="javascript:window.print()" style="margin-top:110px;margin-left:20px">打印原料条码</button></form>') }
+</SCRIPT>

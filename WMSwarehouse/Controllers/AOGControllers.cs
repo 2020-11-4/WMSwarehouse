@@ -34,6 +34,16 @@ namespace WMSwarehouse.Controllers
             ViewBag.XId = XId;
             return View();
         }
-        
+
+        public IActionResult Modality()
+        {
+            return View();
+        }
+
+        public IActionResult StorageShow()
+        {
+            return View();
+        }
+
     }
 }

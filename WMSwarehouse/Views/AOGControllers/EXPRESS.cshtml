@@ -22,16 +22,35 @@
             <label class="layui-form-label" style="width:100px">供应商</label>
             <div class="layui-input-inline">
                 <select name="modules" lay-search="" id="quiz1" lay-verify="required">
-                    <option value="">请选择品类</option>
+                    <option value="">请选择供应商</option>
                 </select>
             </div>
         </form>
     </div>
 
+    <div class="layui-inline">
+        <form class="layui-form" action="">
+            <label class="layui-form-label" style="width:100px">缺货库区</label>
+            <div class="layui-input-inline">
+                <select name="modules" lay-search="" id="laKu" lay-verify="required">
+                    <option value="">请选择库区</option>
+                </select>
+            </div>
+        </form>
+    </div>
 
+    <div class="layui-inline" style="">
+        <label class="layui-form-label" style="width:100px">采购日期</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" id="test10" type="text" placeholder=" - ">
+        </div>
+    </div>
 </div>
+
+<label class="layui-form-label" style="width:100px;margin-left:20px">选择物料</label>
+<button type="button" id="btnTan" class="layui-btn layui-btn-danger" ><i class="layui-icon layui-icon-addition"></i></button>
+
     <br />
-    <label style="margin-top:20px;margin-left:25px"> 采购原料</label>
     <table class="table table-bordered;" style="border:1px solid #000;border-collapse:collapse;margin-left:20px;width:1400px;">
         <thead>
             <tr>
@@ -72,12 +91,25 @@
         layui.use(['form', 'layedit', 'laydate'], function () {
             var form = layui.form;
             $.ajax({
-                url: 'http://localhost:52098/api/CategoryAsync',
+                url: 'http://localhost:52098/api/ProviderAsync',
                 dataType: 'json',
                 type: 'get',
                 success: function (data) {
                     $.each(data, function (index, item) {
-                        $('#quiz1').append(new Option(item.Classes, item.Pid));// 下拉菜单里添加元素
+                        $('#quiz1').append(new Option(item.SName, item.Sid));// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+                    //重新渲染 固定写法
+                }
+            })
+
+            $.ajax({
+                url: 'http://localhost:52098/api/ReserAsync',
+                dataType: 'json',
+                type: 'get',
+                success: function (data) {
+                    $.each(data, function (index, item) {
+                        $('#laKu').append(new Option(item.WarehouseName, item.id));// 下拉菜单里添加元素
                     });
                     layui.form.render("select");
                     //重新渲染 固定写法
@@ -134,9 +166,44 @@
             })
         }
 
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //日期时间范围
+            laydate.render({
+                elem: '#test10'
+                , type: 'datetime'
+                , range: true
+            });
+        });
+
         $("#btnTi").click(function () {
             layer.msg('提交成功！');
             window.location.href = "/AOGControllers/Quick";
         })
 
+        $("#btnTan").click(function () {
+            layer.open({
+                type: 2
+                , area: ['1100px', '800px']
+                , title: '编辑分类'
+                , content: '/AOGControllers/Modality'
+                , maxmin: true
+                , btn: ['确认选择', '关闭']
+                , yes: function (index, layero) {
+                    var row = window["layui-layer-iframe" + index].callbackdata();
+                    layer.alert("get:" + row);
+                    // var row = $(layero).find("layui-layer-iframe")[0].contentWindow.callbackdata();
+                    //可以使用ajax请求对数据进行进一步处理
+                    layer.close(index);
+                }, btn2: function (index, layero) {
+                    layer.close(index);
+                }
+
+            })
+        })
+
+
+
     </script>
+
+   

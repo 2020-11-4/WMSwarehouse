@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "StorageShow";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link href="~/VUE/ElementUI/element-ui.css" rel="stylesheet" />
+
+<div id="divid">
+    <template>
+        <el-tabs v-model="activeName2" type="card" tab-click="handleClick">
+            <el-tab-pane label="首页" name="first">
+                <div>
+                        <el-col :span="5">
+                            <label>采购单号:</label>
+                            <el-input v-model="input" placeholder="请输入内容"></el-input>
+                        </el-col>
+                    
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="采购入库" name="second">配置管理</el-tab-pane>
+            <el-tab-pane label="调拨单审核" name="third">角色管理</el-tab-pane>
+        </el-tabs>
+    </template>
+</div>
+
+<script src="~/VUE/vue.min.js"></script>
+<script src="~/VUE/axios.min.js"></script>
+<script src="~/VUE/ElementUI/element-ui.js"></script>
+
+<script>
+
+    var vue = new Vue({
+        el: "#divid",
+        data: {
+            activeName2: 'first',
+            input: '',
+
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
+        }
+    })
+
+</script>
+
