@@ -1,17 +1,15 @@
 ﻿
 @{
-    ViewData["Title"] = "Particulars";
+    ViewData["Title"] = "Examine";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-
 
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-@*详情ID*@
-
 <link href="~/layui-v2.5.6/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
 <script src="~/layui-v2.5.6/layui/lay/modules/layer.js"></script>
+
 <input id="MId1" type="hidden" value="@ViewBag.MId1" />
 <div style="margin-top:100px">
     <button type="button" class="layui-btn layui-btn-primary">首页</button>
@@ -25,60 +23,85 @@
     <br />
 </div>
 <div style="background-color:#e8e6e6">
-
-    @*<div class="layui-form-item" style="width:320px;">
-            <label class="layui-form-label" style="width:100px">调出仓库:</label>
-            <div class="layui-input-block">
-                <input id="Chu" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
-            </div>
-        </div>
-        <div class="layui-form-item" style="width:320px;">
-            <label class="layui-form-label" style="width:100px">调入仓库:</label>
-            <div class="layui-input-block">
-                <input id="Ru" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
-            </div>
-        </div>*@
-    <label style="margin-top:18px;margin-left:20px"> 调出仓库:<label id="Chu"> </label> </label>
-    <label style="margin-top:18px;margin-left:100px"> 调入仓库:<label id="Ru"> </label> </label>
+    <label style="margin-top:18px;margin-left:20px"> 调出仓库:<label id="Chu">知识清除</label> </label>
+    <label style="margin-top:18px;margin-left:100px"> 调入仓库:<label id="Ru">花园</label> </label>
 </div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 <br />
 <br />
-<span>备注：尽快发货，客户明天中午来取。</span>
+<span style="color:red;margin-left:27px">备注：尽快发货，客户明天中午来取。</span>
+<form class="layui-form" action="">
+    <br />
+    <p style="margin-left:29px">审核状态：<a style="color:#4cff00">通过审核</a></p>
+    <p style="margin-left:29px">审核意见：<b id="tyi">同意</b></p>
+    <p style="margin-left:29px">审核时间：<b id="tyi">2019-1-28</b></p>
+    <div style="text-align:center">
+        <button type="button" class="layui-btn layui-btn-normal">审核通过</button>
+        <button type="button" class="layui-btn layui-btn-danger">审核不通过</button>
+    </div>
+</form>
+
+
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
 <script>
     layui.use('table', function () {
         var table = layui.table;
         table.render({
             elem: '#test'
-            , url: 'http://localhost:52098/api/GetT_Merging1'
+            , url: 'http://localhost:52098/api/GetT_Orderdetail1'
             , toolbar: '#toolbarDemo'
+            , title: '用户数据表'
+            , totalRow: true
             , cols: [[
+
+
                 { field: 'XID', width: 80, minWidth: 100, title: '序号', sort: true }
                 , { field: 'Pcoding', minWidth: 100, title: '物品编码' }
                 , { field: 'PName', minWidth: 100, title: '物品名称' }
                 , { field: 'Pamount', minWidth: 100, title: '可用库存' }
+                , { field: 'Sum', minWidth: 100, title: '待审核调拨总数' }
                 , { field: 'Quantity', minWidth: 100, title: '申请数量' }
                 , { field: 'Approvalnumber', minWidth: 100, title: '审批数量' }
                 , { field: 'Turnoverbasket', minWidth: 100, title: '已出库数量' }
                 , { field: 'Image', minWidth: 100, title: '周转筐' }
                 , { field: 'Punit', minWidth: 100, title: '计量单位' }
                 , { field: 'Pamount', minWidth: 100, title: '单价' }
+                , { field: 'Auditmoney', minWidth: 100, title: '审批金额', totalRow: true }
             ]]
             , page: true
         });
-        //头工具栏事件
+
+        //工具栏事件
         table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+            var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
                 case 'getCheckData':
-                    var data = checkStatus.data;  //获取选中行数据
+                    var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
                     break;
             };
         });
     });
 </script>
 
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+
+    })
+</script>
 <script>
 
     $.ajax({
@@ -89,10 +112,10 @@
         success: function (d) {
             console.log(d);
             $.each(d, function (index, item) {
-                //$("#Chu").val(item.Tuneout);
-                //$("#Ru").val(item.Transferred);
-                $("#Chu").append(item.Tuneout);
-                $("#Ru").append(item.Transferred);
+                //$("#Chu").val(item.Chu);
+                //$("#Ru").val(item.Ru);
+                $("#Chu").append(item.Chu);
+                $("#Ru").append(item.Ru);
             })
         }
     })

@@ -14,8 +14,9 @@ namespace WMSwarehouse.Controllers
             return View();
         }
         //调拨物品详情
-        public IActionResult Particulars()
+        public IActionResult Particulars(int MId1)
         {
+            ViewBag.MId1 = MId1;
             return View();
         }
         //补货需求列表
@@ -33,6 +34,17 @@ namespace WMSwarehouse.Controllers
         {
             return View();
         }
+        //查看
+        public IActionResult Examine()
+        {
+            return View();
+        }
+        //调拨发配区
+        public IActionResult Banish()
+        {
+            return View();
+        }
+
 
     }
 }

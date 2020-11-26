@@ -57,24 +57,21 @@
             </button>
         </div>
         <div class="layui-input-inline " style="margin-left:33px">
-            <button class="layui-btn" data-type="getCheckData" style="background:#7185a2">批量审核</button>
+            <script id="toolbarDemo">
+
+                <button id="toolbarDemo" class="layui-btn layui-btn-sm" lay-event="getCheckLength">批量审核</button>
+
+            </script>
+
         </div>
     </div>
-    <script type="text/html" id="barDemo">
-        <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest">
-    </script>
+    @*<script type="text/html" id="barDemo">
+            <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest">
+        </script>*@
 
 </form>
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
-
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-    </div>
-</script>
 
 <script>
     layui.use(['form', 'table', 'layedit', 'laydate'], function () {
@@ -87,52 +84,68 @@
             , title: '用户数据表'
             , totalRow: true
             , cols: [[
-                { type: 'checkbox', fixed: 'left'}
+                { type: 'checkbox', fixed: 'left' }
                 , { field: 'Epmi', title: '一级品类', minWidth: 100, fixed: 'left', unresize: true, sort: true, totalRowText: '合计' }
                 , { field: 'Sname', title: '商品名称', minWidth: 100, }
                 , { field: 'Sbh', title: '商品编号', minWidth: 150, }
-                , { field: 'Specification', title: '规格', minWidth: 100,  }
-                , { field: 'Price', title: '价格(元)', minWidth: 100, totalRow: true }
+                , { field: 'Specification', title: '规格', minWidth: 100, }
+                , {
+                    field: 'Price', title: '价格(元)', minWidth: 100, totalRow: true
+                }
                 , { field: 'Amount', title: '数量(份)', minWidth: 100, }
                 , { field: 'AvailableStock', title: '可用库存(份)', minWidth: 100 }
-                , { field: 'Totalreplenishment', title: '合计补货(kg)/份', minWidth: 130}
+                , { field: 'Totalreplenishment', title: '合计补货(kg)/份', minWidth: 130 }
                 , { field: 'Audit', title: '审核', minWidth: 100 }
                 , { field: 'Reviewof', title: '审核合计数量(份)', minWidth: 150 }
                 , { field: 'Comparisonof', title: '对比需求(份)', minWidth: 150 }
-                , { fixed: 'Onoff', title: '关闭补货需求', toolbar: '#barDemo', minWidth: 150 }
+                , {
+                    field: 'Comparisonof', title: '合计金额:', minWidth: 150,
+                    templet: function (d) {
+                        return Number(d.Price) * Number(d.Amount);
+                    }, totalRow: true
+                }
+                , {
+                    field: 'Onoff', title: '关闭补货需求', minWidth: 150, templet: function (d) {
+                        if (d.Onoff == true) {
+                            return "关闭";
+                        }
+                        else {
+                            return "已关闭";
+                        }
+                    }
+                }
             ]]
             , page: true
         });
+
+
+
+
+
         //监听指定开关
-        form.on('switch(switchTest)',function (data) {
-            layer.msg('信息更改' + (this.checked ? 'false' : 'true'), {
-                offset: '6px'
-            });
-            if (this.Onoff == true) {
-                layer.tips('已关闭', data.othis)
+        //form.on('switch(switchTest)',function (data) {
+        //    layer.msg('信息更改' + (this.checked ? 'false' : 'true'), {
+        //        offset: '6px'
+        //    });
+        //    if (this.Onoff == true) {
+        //        layer.tips('已关闭', data.othis)
 
-            }
-            else {
-                layer.tips('关闭', data.othis)
+        //    }
+        //    else {
+        //        layer.tips('关闭', data.othis)
 
-            }
-        });
-        
+        //    }
+        //});
+
         //工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
                 case 'getCheckLength':
                     var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
+                    layer.msg('已审核：' + data.length + ' 个');
                     break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                    break;
+
             };
         });
     });
