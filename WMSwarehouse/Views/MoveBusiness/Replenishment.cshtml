@@ -11,14 +11,14 @@
     <br />
     <div style="background-color:#eae5e5">
         <br />
-        <div class="layui-form-item"style="margin-left:40px">
+        <div class="layui-form-item" style="margin-left:40px">
             <label class="layui-form-label" style="width:130px">门店：</label>
             <div class="layui-input-inline">
                 <select name="door">
-                    <option >全部</option>
-                    <option >国际花园</option>
-                    <option >新兴里</option>
-                    <option >何木谷</option> 
+                    <option>全部</option>
+                    <option>国际花园</option>
+                    <option>新兴里</option>
+                    <option>何木谷</option>
                 </select>
             </div>
 
@@ -50,10 +50,10 @@
         </div>
     </div>
 </form>
-   
+
 <table class="layui-hide" id="test"></table>
 <script type="text/html" id="barDemo">
-    <a href="#" style="color:#0094ff" lay-event="edit">详情</a>
+    <a href="http://localhost:50896/MoveBusiness/Itemdetails" style="color:#0094ff" lay-event="edit">详情</a>
 </script>
 <script>
     layui.use('table', function () {
@@ -65,7 +65,7 @@
                 { field: 'IXD', width: 100, title: '序号' }
                 , { field: 'Replenishodd', minWidth: 150, title: '补货单号' }
                 , { field: 'ReplenishDate', minWidth: 150, title: '补货日期' }
-                , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 } 
+                , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
             ]]
             , page: true
         });

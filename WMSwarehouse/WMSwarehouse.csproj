@@ -8,4 +8,62 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\MoveBusiness\Audit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\MoveBusiness\Itemdetails.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\MoveBusiness\Particulars.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\MoveBusiness\Replenishment.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Views\FrmLossController1\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\FrmLossController1\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\FrmLossController1\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\FrmLossController1\Show.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MoveBusiness\Banish.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MoveBusiness\Examine.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Views\FrmLossController1\Show.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\FrmLossController1\Show.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Views\MoveBusiness\Banish.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\MoveBusiness\Banish.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Views\MoveBusiness\Examine.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\MoveBusiness\Examine.cshtml" />
+  </ItemGroup>
+
 </Project>

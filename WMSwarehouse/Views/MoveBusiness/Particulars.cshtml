@@ -8,7 +8,11 @@
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*详情ID*@
 
+<link href="~/layui-v2.5.6/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/lay/modules/layer.js"></script>
+<input id="MId1" type="hidden" value="@ViewBag.MId1" />
 <div style="margin-top:100px">
     <button type="button" class="layui-btn layui-btn-primary">首页</button>
     <button type="button" class="layui-btn layui-btn-primary">调拨单列表</button>
@@ -20,7 +24,23 @@
     <h2 style="text-align:center"> 调拨物品详情</h2>
     <br />
 </div>
+<div style="background-color:#e8e6e6">
 
+    @*<div class="layui-form-item" style="width:320px;">
+            <label class="layui-form-label" style="width:100px">调出仓库:</label>
+            <div class="layui-input-block">
+                <input id="Chu" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-form-item" style="width:320px;">
+            <label class="layui-form-label" style="width:100px">调入仓库:</label>
+            <div class="layui-input-block">
+                <input id="Ru" disabled="disabled" name="title" class="layui-input" type="text" placeholder="" autocomplete="off" lay-verify="title">
+            </div>
+        </div>*@
+    <label style="margin-top:18px;margin-left:20px"> 调出仓库:<label id="Chu"> </label> </label>
+    <label style="margin-top:18px;margin-left:100px"> 调入仓库:<label id="Ru"> </label> </label>
+</div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 <br />
 <br />
@@ -30,24 +50,22 @@
         var table = layui.table;
         table.render({
             elem: '#test'
-            , url: 'http://localhost:52098/api/GetT_Itemdetails'
+            , url: 'http://localhost:52098/api/GetT_Merging1'
             , toolbar: '#toolbarDemo'
             , cols: [[
-              
-                  { field: 'XID', width: 80, minWidth: 100, title: '序号', sort: true }
+                { field: 'XID', width: 80, minWidth: 100, title: '序号', sort: true }
                 , { field: 'Pcoding', minWidth: 100, title: '物品编码' }
                 , { field: 'PName', minWidth: 100, title: '物品名称' }
                 , { field: 'Pamount', minWidth: 100, title: '可用库存' }
                 , { field: 'Quantity', minWidth: 100, title: '申请数量' }
-                , { field: 'Approvalnumber', minWidth: 100, title: '审批数量'}
-                , { field: 'Turnoverbasket', minWidth: 100,title: '已出库数量'}
+                , { field: 'Approvalnumber', minWidth: 100, title: '审批数量' }
+                , { field: 'Turnoverbasket', minWidth: 100, title: '已出库数量' }
                 , { field: 'Image', minWidth: 100, title: '周转筐' }
-                , { field: 'Punit', minWidth: 100, title: '计量单位'}
+                , { field: 'Punit', minWidth: 100, title: '计量单位' }
                 , { field: 'Pamount', minWidth: 100, title: '单价' }
             ]]
             , page: true
         });
-
         //头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
@@ -61,5 +79,22 @@
     });
 </script>
 
+<script>
 
+    $.ajax({
+        url: 'http://localhost:52098/api/GetT_Merging',
+        type: 'get',
+        data: { MId1: $("#MId1").val() },
+        dataType: 'Json',
+        success: function (d) {
+            console.log(d);
+            $.each(d, function (index, item) {
+                //$("#Chu").val(item.Tuneout);
+                //$("#Ru").val(item.Transferred);
+                $("#Chu").append(item.Tuneout);
+                $("#Ru").append(item.Transferred);
+            })
+        }
+    })
 
+</script>

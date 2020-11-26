@@ -7,7 +7,10 @@
 <link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
 <script src="~/layui-v2.5.6/layui/layui.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link href="~/layui-v2.5.6/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/lay/modules/layer.js"></script>
 
+<input id="MId1" type="hidden" value="@ViewBag.MId1" />
 <div style="margin-top:100px">
     <button type="button" class="layui-btn layui-btn-primary">首页</button>
     <button type="button" class="layui-btn layui-btn-primary">调拨单列表</button>
@@ -20,24 +23,24 @@
     <br />
 </div>
 <div style="background-color:#e8e6e6">
-
-
+    <label style="margin-top:18px;margin-left:20px"> 调出仓库:<label id="Chu">知识清除</label> </label>
+    <label style="margin-top:18px;margin-left:100px"> 调入仓库:<label id="Ru">花园</label> </label>
 </div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 <br />
 <br />
-<span style="color:red;margin-left:27px" >备注：尽快发货，客户明天中午来取。</span>
+<span style="color:red;margin-left:27px">备注：尽快发货，客户明天中午来取。</span>
 <form class="layui-form" action="">
     <br />
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label"style="width:110px">审核意见：</label>
+        <label class="layui-form-label" style="width:110px">审核意见：</label>
         <div class="layui-input-block">
             <textarea placeholder="请输入内容500字以内" class="layui-textarea"></textarea>
         </div>
     </div>
     <div style="text-align:center">
-        <button type="button" class="layui-btn layui-btn-normal">审核通过</button>
-        <button type="button" class="layui-btn layui-btn-danger">审核不通过</button>
+        <button type="button" class="layui-btn layui-btn-normal" id="Tongg">审核通过</button>
+        <button type="button" class="layui-btn layui-btn-danger" id="Wei">审核不通过</button>
     </div>
 </form>
 
@@ -49,29 +52,28 @@
 </script>
 
 <script>
-    layui.use('table', function () {
+    layui.use(['form', 'layedit', 'laydate','table'], function () {
+
         var table = layui.table;
         table.render({
             elem: '#test'
-            , url: 'http://localhost:52098/api/GetT_Itemdetails'
+            , url: 'http://localhost:52098/api/GetT_Orderdetail1'
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
             , cols: [[
-
-
                 { field: 'XID', width: 80, minWidth: 100, title: '序号', sort: true }
                 , { field: 'Pcoding', minWidth: 100, title: '物品编码' }
                 , { field: 'PName', minWidth: 100, title: '物品名称' }
                 , { field: 'Pamount', minWidth: 100, title: '可用库存' }
-                , { field: 'city', minWidth: 100, title: '待审核调拨总数' }
+                , { field: 'Sum', minWidth: 100, title: '待审核调拨总数' }
                 , { field: 'Quantity', minWidth: 100, title: '申请数量' }
                 , { field: 'Approvalnumber', minWidth: 100, title: '审批数量' }
                 , { field: 'Turnoverbasket', minWidth: 100, title: '已出库数量' }
                 , { field: 'Image', minWidth: 100, title: '周转筐' }
                 , { field: 'Punit', minWidth: 100, title: '计量单位' }
                 , { field: 'Pamount', minWidth: 100, title: '单价' }
-                , { field: 'city', minWidth: 100, title: '审批金额', totalRow: true }
+                , { field: 'Auditmoney', minWidth: 100, title: '审批金额', totalRow: true }
             ]]
             , page: true
         });
@@ -96,9 +98,20 @@
     });
 </script>
 
+<script>
 
-    <script>
-        layui.use(['form', 'layedit', 'laydate'], function () {
-
-        })
-    </script>
+    $.ajax({
+        url: 'http://localhost:52098/api/GetT_Merging',
+        type: 'get',
+        data: { MId1: $("#MId1").val() },
+        dataType: 'Json',
+        success: function (d) {
+            console.log(d);
+            $.each(d, function (index, item) {
+                $("#Chu").append(item.Chu);
+                $("#Ru").append(item.Ru);
+            })
+        }
+    })
+    
+</script>
