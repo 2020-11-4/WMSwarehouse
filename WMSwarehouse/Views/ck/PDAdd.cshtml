@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "PDAdd";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<h1>添加盘点任务</h1>
+
+<table class="table table-hover">
+    <tr>
+        <td>任务名称：<input id="name" type="text" class="btn btn-outline-primary" /></td>
+        <td>盘点仓库：<input id="cang" type="text" class="btn btn-outline-primary" /></td>
+    </tr>
+    <tr>
+        <td>盘点库区：<input id="qu" type="text" class="btn btn-outline-primary" /></td>
+        <td>盘点人：<input id="ren" type="text" class="btn btn-outline-primary" /></td>
+    </tr>
+    <tr>
+        <td>盘点货架：<input id="huo" type="text" class="btn btn-outline-primary" /></td>
+        <td>盘点时间：<input id="time" type="text" class="btn btn-outline-primary" /></td>
+    </tr>
+    <tr>
+        <td>盘点单号：<input id="danhao" type="text" class="btn btn-outline-primary" /></td>
+        <td>备注：<input id="bei" type="text" class="btn btn-outline-primary" /></td>
+    </tr>
+    <tr>
+        <td>状态：<input id="states" type="text" class="btn btn-outline-primary" /></td>
+    </tr>
+</table>
+<input id="Button1" type="button" value="生成盘点任务" class="btn btn-outline-primary" onclick="location.href='/ck/wpdshow'" />
+<input id="Button1" type="button" value="预览盘点任务" class="btn btn-outline-danger" onclick="location.href='/ck/wpdshow'" />
+<script>
+    function PDAdd() {
+        var obj = {};
+        obj.pname = $("#name").val();
+        obj.pwarehouse = $("#cang").val();
+        obj.parea = $("#qu").val();
+        obj.pren = $("#ren").val();
+        obj.ptime = $("#time").val();
+        obj.pdanhao = $("#danhao").val();
+        obj.pbei = $("#bei").val();
+        obj.psates = $("#states").val();
+        $.ajax({
+            url: "http://localhost:52098/api/PDAdd",
+            data: obj,
+            dataType: "json",
+            type: "post",
+            success: function (d) {
+                if (d > 0) {
+                    alert("提交成功");
+                    location.href = "/ck/wpdshow";
+                } else {
+                    alert("提交失败");
+                    return;
+                }
+            }
+        })
+    }
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //日期时间范围
+        laydate.render({
+            elem: '#time'
+            , type: 'datetime'
+            , range: true
+        });
+    });
+</script>

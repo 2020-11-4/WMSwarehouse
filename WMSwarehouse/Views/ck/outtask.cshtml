@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "outtask";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h1>添加出库任务</h1>
+
+<table class="table table-primary" style="width:1300px;">
+    <thead>
+        <tr>
+            <th style="text-align:center;"><input class="Checkbox1" type="checkbox" onclick="quan()" />/全选</th>
+            <th style="text-align:center;">序号</th>
+            <th style="text-align:center;">产品品类</th>
+            <th style="text-align:center;">产品编码</th>
+            <th style="text-align:center;">产品名称</th>
+            <th style="text-align:center;">产品规格</th>
+            <th style="text-align:center;">库存数量</th>
+            <th style="text-align:center;">出库数量</th>
+        </tr>
+    </thead>
+    <tbody id="xx">
+    </tbody>
+</table>
+出库原因：<select id="Select1">
+    <option>请选择</option>
+    <option>线下销售出库</option>
+    <option>送食堂出库</option>
+</select>
+备注：<input id="Text1" type="text" />
+<input id="Button1" type="button" value="提交" onclick="tijiao()" class="btn btn-github" />
+<script>
+    $(function () {
+        HouseShow()
+    })
+    function HouseShow() {
+        $.ajax({
+            url: "http://localhost:52098/api/outtask",
+            type: "get",
+            dataType: "json",
+            success: function (d) {
+                $("#xx").empty();
+                $(d).each(function () {
+                    var str = "";
+                    str += '<tr>'
+                        + '<td style="text-align:center;"><input class="Checkbox2" type="checkbox" value=' + this.house_id + ' /></td>'
+                        + '<td style="text-align:center;">' + this.product_Id + '</td>'
+                        + '<td style="text-align:center;">' + this.pCategory + '</td>'
+                        + '<td style="text-align:center;">' + this.pcoding + '</td>'
+                        + '<td style="text-align:center;">' + this.pName + '</td>'
+                        + '<td style="text-align:center;">' + this.pspecification + '</td>'
+                        + '<td style="text-align:center;">' + this.pamount + '</td>'
+                        + '<td style="text-align:center;"><input id="Text1" type="text" /></td>'
+                        + '</tr>';
+                    $("#xx").append(str);
+                })
+            }
+        })
+    }
+    //全选
+    function quan() {
+        if ($(".Checkbox1").prop("checked")) {
+            $(".Checkbox2").prop("checked", true);
+        } else {
+            $(".Checkbox2").prop("checked", false);
+        }
+    }
+    //提交
+    function tijiao() {
+        alert("提交成功");
+        location.href = '/ck/CKout';
+    }
+</script>

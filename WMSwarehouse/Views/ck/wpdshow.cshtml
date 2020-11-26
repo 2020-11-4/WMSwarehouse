@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "wpdshow";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<h1>盘点任务管理</h1>
+<button type="button" class="layui-btn layui-btn-warm" style="margin-right:50px" onclick="location.href='/ck/wpdshow'">未完成盘点单</button>
+<button type="button" class="layui-btn layui-btn-warm" style="margin-right:50px" onclick="location.href='/ck/ypdshow'">已完成盘点单</button>
+<hr style="border:2px solid black" />
+<span style="margin-right:1000px"></span><button type="button" class="layui-btn layui-btn-warm" style="margin-right:50px" onclick="location.href='/ck/PDAdd'">添加盘点任务</button>
+<table class="table table-primary" style="width:1300px;">
+    <thead>
+        <tr>
+            <th style="text-align:center;">序号</th>
+            <th style="text-align:center;">盘点单号</th>
+            <th style="text-align:center;">任务名称</th>
+            <th style="text-align:center;">盘点仓库</th>
+            <th style="text-align:center;">盘点时间</th>
+            <th style="text-align:center;">盘点人</th>
+            <th style="text-align:center;">盘点状态</th>
+            <th style="text-align:center;">操作</th>
+        </tr>
+    </thead>
+    <tbody id="xx">
+    </tbody>
+</table>
+<div style="text-align:center;">
+    <input id="First" type="button" value="首页" onclick="goFirst()" class="btn btn-outline-primary" />
+    <input id="Prev" type="button" value="上一页" onclick="goPrev()" class="btn btn-outline-primary" />
+    <input id="Next" type="button" value="下一页" onclick="goNext()" class="btn btn-outline-primary" />
+    <input id="Last" type="button" value="尾页" onclick="goLast()" class="btn btn-outline-primary" />
+</div>
+@*分页*@
+<script>
+    //页码
+    var index = 1;
+    //条数
+    var size = 5;
+    //总条数
+    var sizecount = 0;
+    //总页数
+    var indexcount = 0;
+    //首页
+    function goFirst() {
+        index = 1;
+        HouseShow();
+    }
+    //上一页
+    function goPrev() {
+        if (index == 1) {
+            alert("已经在首页了！");
+            return
+        }
+        index--;
+        HouseShow();
+    }
+    //下一页
+    function goNext() {
+        if (index == indexcount) {
+            alert("已经在尾页了！");
+            return
+        }
+        index++;
+        HouseShow();
+    }
+    //尾页
+    function goLast() {
+        index = indexcount;
+        HouseShow();
+    }
+</script>
+<script>
+    $(function () {
+        HouseShow()
+    })
+    function HouseShow() {
+        $.ajax({
+            url: "http://localhost:52098/api/panshow",
+            type: "get",
+            data: { index: index, size: size },
+            dataType: "json",
+            success: function (d) {
+                $("#xx").empty();
+                $(d).each(function () {
+                    var str = "";
+                    str += '<tr>'
+                        + '<td style="text-align:center;">' + this.pandian_id + '</td>'
+                        + '<td style="text-align:center;">' + this.pdanhao + '</td>'
+                        + '<td style="text-align:center;">' + this.pname + '</td>'
+                        + '<td style="text-align:center;">' + this.pwarehouse + '</td>'
+                        + '<td style="text-align:center;">' + this.ptime + '</td>'
+                        + '<td style="text-align:center;">' + this.pren + '</td>'
+                        + '<td style="text-align:center;">' + this.psates + '</td>'
+                        + '<td style="text-align:center;"><input id="Button1" type="button" value="编辑" class="btn btn-outline-primary" onclick="bj(' + this.pandian_id + ')" /></td>'
+                        + '</tr>';
+                    $("#xx").append(str);
+                })
+                sizecount = count;
+                index = Math.ceil(sizecount / size);
+            }
+        })
+    }
+
+    function bj(id) {
+        location.href = '/ck/xiangqing?id=' + id;
+    }
+</script>
+

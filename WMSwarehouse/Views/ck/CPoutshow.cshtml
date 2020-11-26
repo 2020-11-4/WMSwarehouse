@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewData["Title"] = "particularsshow";
+    ViewData["Title"] = "CPoutshow";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 @*<link href="~/css/site.css" rel="stylesheet" />*@
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<h1>采购退货详情</h1>
+<h1>产品出库任务详情</h1>
 <div style="border-width: 2px;border-color:black;border-style: solid;width:1200px;height:100px;">
     <span>产品品类：</span><input id="wtype" type="text" />
     <span>产品名称：</span><input id="wname" type="text" />
@@ -85,7 +85,7 @@
         var wtype = $("#wtype").val();
         var wname = $("#wname").val();
         $.ajax({
-            url: "http://localhost:52098/api/particularsshow",
+            url: "http://localhost:52098/api/CPoutshow",
             type: "get",
             data: { index: index, size: size,wtype: wtype, wname: wname },
             dataType: "json",
@@ -111,6 +111,7 @@
                 })
                 sizecount = count;
                 index = Math.ceil(sizecount / size);
+                
             }
         })
     }
