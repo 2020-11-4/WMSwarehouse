@@ -40,7 +40,12 @@ namespace WMSwarehouse.Controllers
             return View();
         }
 
-        public IActionResult StorageShow()
+        public IActionResult Arrival()
+        {
+            return View();
+        }
+
+        public IActionResult Task()
         {
             return View();
         }
