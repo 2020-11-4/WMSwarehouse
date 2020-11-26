@@ -57,7 +57,7 @@
         var table = layui.table;
         table.render({
             elem: '#test'
-            , url: 'http://localhost:52098/api/GetT_Orderdetail1'
+            , url: 'http://localhost:52098/api/GetT_Merging1'
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
@@ -76,6 +76,8 @@
                 , { field: 'Auditmoney', minWidth: 100, title: '审批金额', totalRow: true }
             ]]
             , page: true
+            , limit: 10
+            ,limits:[10,20]
         });
 
         //工具栏事件
