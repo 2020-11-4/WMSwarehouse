@@ -14,8 +14,13 @@ namespace WMSwarehouse.Controllers
             return View();
         }
         //调拨物品详情
+<<<<<<< HEAD:WMSwarehouse/WMSwarehouse/Controllers/MoveBusinessController.cs
+        public IActionResult Particulars(int MId1)
+=======
         public IActionResult Particulars()
+>>>>>>> 70fb654258a83fbcfe18432f663d27ce3269e551:WMSwarehouse/Controllers/MoveBusinessController.cs
         {
+            ViewBag.MId1 = MId1;
             return View();
         }
         //补货需求列表
@@ -34,5 +39,19 @@ namespace WMSwarehouse.Controllers
             return View();
         }
 
+<<<<<<< HEAD:WMSwarehouse/WMSwarehouse/Controllers/MoveBusinessController.cs
+        //查看
+        public IActionResult Examine()
+        {
+            return View();
+        }
+        //调拨发配区
+        public IActionResult Banish()
+        {
+            return View();
+        }
+
+=======
+>>>>>>> 70fb654258a83fbcfe18432f663d27ce3269e551:WMSwarehouse/Controllers/MoveBusinessController.cs
     }
 }

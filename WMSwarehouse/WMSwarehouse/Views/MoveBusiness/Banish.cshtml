@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Banish";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link href="~/layui-v2.5.6/layui/css/layui.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/layui.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link href="~/layui-v2.5.6/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
+<script src="~/layui-v2.5.6/layui/lay/modules/layer.js"></script>
+
+
+<h2>调出发配送区</h2>
+<br />
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">周转筐编码：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">自提点：</label>
+        <div class="layui-input-inline">
+            <select name="quiz2">
+                <option>全部</option>
+                <option>地质花园</option>
+                <option>浅水半岛C区</option>
+            </select>
+        </div>
+        <label class="layui-form-label" style="color:red">温区：</label>
+        <div class="layui-input-inline">
+            <select name="quiz3">
+                <option>全部</option>
+                <option>常温区</option>
+                <option>冷藏区</option>
+                <option>冻库区</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-input-inline " style="margin-left:40px">
+        <button class="layui-btn" id="searchEmailCompany" data-type="reload">
+            <i class="layui-icon" style="font-size: 20px; ">&#xe615;</i> 搜索
+        </button>
+    </div>
+</form>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">发送至配送区</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a style="color:#0026ff" lay-event="del">发送至配送区</a>
+</script>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'table'], function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            , url: 'http://localhost:52098/api/GetT_Distribution'
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , title: '用户数据表'
+            , cols: [[
+                { type: 'checkbox', fixed: 'left' }
+                , { field: 'QId', title: '序号', minWidth: 100, fixed: 'left', unresize: true, sort: true }
+                , { field: 'Zbh', title: '周转筐编码', minWidth: 100, edit: 'text' }
+                , {
+                    field: 'Temperature', title: '温区', minWidth: 100, edit: 'text', templet: function (res) {
+                        if (res.Temperature) { return "常温区" } else if (res.Temperature) { return "冷藏区" }
+                        else { return "冻库区"}
+                    }
+                }
+                , { field: 'Shop', title: '商品数量', minWidth: 100, edit: 'text', sort: true }
+                , { field: 'ID', title: '配送自提点', minWidth: 100}
+                , { fixed: 'right', title: '操作', toolbar: '#barDemo', minWidth: 100 }
+            ]]
+            , page: true
+        });
+
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    if (data!="") {
+                        layer.msg('已选择：' + data.length + ' 项,发送成');
+                    }
+                    else {
+                        layer.msg('未发送成功');
+                    }
+                    
+                    break;                        
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            //console.log(obj)
+            if (obj.event === 'del') {
+                layer.confirm('是否确定要发送周转筐至配送区？', function (index) {
+                    layer.close(index);
+                });
+            } 
+        });
+    });
+</script>
