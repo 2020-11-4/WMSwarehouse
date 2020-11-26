@@ -115,7 +115,26 @@
                 <table class="layui-hide" id="test" lay-filter="test"></table>
             </div>
         </div>
-            <div class="layui-tab-item">内容2</div>
+        <div class="layui-tab-item">
+            <div style="margin-top:20px">
+                <label> 快捷到货登记（DH001）</label>
+                <hr />
+            </div>
+            <div>
+                <label style="margin-top:18px;margin-left:20px"> 到货单号:<label id="CDan">DH190213000008</label> </label>
+                <label style="margin-top:18px;margin-left:100px"> 采购订单号:<label id="CSang">KJCGD190213000008</label> </label>
+                <label style="margin-top:18px;margin-left:100px"> 供应商:<label id="CSang">王朝 </label> </label>
+                <br />
+                <label style="margin-top:18px;margin-left:20px"> 卸货库区:<label id="CSang">成都总仓 </label> </label>
+                <label style="margin-top:18px;margin-left:100px"> 到货日期:<label id="CSang">2021-05-09 00:00:00.0000000 </label> </label>
+            </div>
+
+            <div style="background-color:aliceblue">
+                <i class="layui-icon layui-icon-spread-left" style="font-size:25px;color:black">数据列表</i>
+                <table class="layui-hide" id="tbsb" lay-filter="tbsb"></table>
+            </div>
+            <button class="layui-btn layui-btn-big" id="btnJiao"  style="margin-top:80px;margin-left:500px">提交入库</button>
+        </div>
             <div class="layui-tab-item">内容3</div>
         </div>
 </div>
@@ -147,7 +166,32 @@
             , limit: 10
             , limits: [10, 20]
         });
+
+        table.render({
+            elem: '#tbsb'
+            , url: 'http://localhost:52098/api/AOGShowAsync'
+            , title: '文章管理'
+            , method: 'get'
+            , id: 'testReload'
+            , cols: [[
+                { type: 'checkbox' }
+                , { field: 'Purchasing_Id', width: 130, title: '序号', sort: true }
+                , { field: 'Ordernumber', width: 170, title: '采购单号' }
+                , { field: 'SName', width: 170, title: '供应商名称', sort: true }
+                , { field: 'Classes', width: 160, title: '产品品类' }
+                , { field: 'Purchasedate', width: 150, title: '采购日期' }
+                , { field: 'Agent', width: 150, title: '采购人', sort: true }
+                , { field: 'State', width: 150, title: '入库状态', sort: true }
+                , { field: 'wealth', width: 350, title: '操作', toolbar: '#barDome' }
+            ]]
+            , page: true
+            , limit: 10
+            , limits: [10, 20]
+        });
+
     });
+
+         
 
     layui.use('element', function () {
         var $ = layui.jquery
@@ -181,6 +225,8 @@
            
     });
 
-    
+    $("#btnJiao").click(function () {
+        window.location.href = "/AOGControllers/AOGShow";
+    })
     
 </script>
